@@ -1,6 +1,16 @@
 @extends('layouts.app')
 
 @section('content')
+    <div class="container mt-4">
+        @if (Session::has('success'))
+            <div class="alert alert-success alert-dismissible fade show custom-alert-success" role="alert">
+                {{ Session::get('success') }}
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        @endif
+    </div>
     <section class="ftco-section">
         <div class="container">
             <div class="row">
@@ -15,13 +25,17 @@
                     <p>
                         {{ $product->description }}
                     </p>
-                    <form method="POST" action="{{route('add.cart', $product->id)}}">
+                    <form method="POST" action="{{ route('add.cart', $product->id) }}">
                         @csrf
-                        <input type="text" name="product_id" value="{{$product->id}}">
-                        <input type="text" name="name" value="{{$product->name}}">
-                        <input type="text" name="price" value="{{$product->price}}">
-                        <input type="text" name="image" value="{{$product->image}}">
-                        <button type="submit" name="submit" class="btn btn-primary py-3 px-5">Add to Cart</button>
+                        <input type="hidden" name="product_id" value="{{ $product->id }}">
+                        <input type="hidden" name="name" value="{{ $product->name }}">
+                        <input type="hidden" name="price" value="{{ $product->price }}">
+                        <input type="hidden" name="image" value="{{ $product->image }}">
+                        @if ($checkingInCart == 0)
+                        <button type="submit" name="submit" class="btn btn-primary py-3 px-5" >Add to Cart</button>
+                        @else
+                        <button style="background-color: black" class="btn btn-primary py-3 px-5" disabled >Added to Cart</button>
+                        @endif
                 </div>
             </div>
         </div>
@@ -39,17 +53,21 @@
             </div>
             <div class="row">
                 @foreach ($retlatedProducts as $relatedProduct)
-                <div class="col-md-3">
-                    <div class="menu-entry">
-                        <a href="{{route('product.single', $relatedProduct->id)}}" class="img" style="background-image: url({{asset('assets/images/'.$relatedProduct->image.'')}});"></a>
-                        <div class="text text-center pt-4">
-                            <h3><a href="{{route('product.single', $relatedProduct->id)}}">{{$relatedProduct->name}}</a></h3>
-                            <p>{{$relatedProduct->description}}</p>
-                            <p class="price"><span>${{$relatedProduct->price}}</span></p>
-                            <p><a href="{{route('product.single', $relatedProduct->id)}}" class="btn btn-primary btn-outline-primary">Show</a></p>
+                    <div class="col-md-3">
+                        <div class="menu-entry">
+                            <a href="{{ route('product.single', $relatedProduct->id) }}" class="img"
+                                style="background-image: url({{ asset('assets/images/' . $relatedProduct->image . '') }});"></a>
+                            <div class="text text-center pt-4">
+                                <h3><a
+                                        href="{{ route('product.single', $relatedProduct->id) }}">{{ $relatedProduct->name }}</a>
+                                </h3>
+                                <p>{{ $relatedProduct->description }}</p>
+                                <p class="price"><span>${{ $relatedProduct->price }}</span></p>
+                                <p><a href="{{ route('product.single', $relatedProduct->id) }}"
+                                        class="btn btn-primary btn-outline-primary">Show</a></p>
+                            </div>
                         </div>
                     </div>
-                </div>
                 @endforeach
             </div>
         </div>
