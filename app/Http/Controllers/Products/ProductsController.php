@@ -6,8 +6,11 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Product\Product;
 use App\Models\Product\Cart;
+use App\Models\Product\Order;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Validator;
 
 class ProductsController extends Controller
 {
@@ -63,6 +66,63 @@ class ProductsController extends Controller
         } else {
             return Redirect::route('cart')
                 ->with(['error' => "Failed to remove the product from the cart"]);
+        }
+    }
+
+    public function prepareCheckout(Request $request)
+    {
+        $value = $request->price;
+        $price = Session::put('price', $value);
+
+        $newPrice = Session::get($price);
+
+        if ($newPrice > 0) {
+            return Redirect::route('checkout');
+        }
+    }
+
+    public function checkout()
+    {
+        return view('products.checkout');
+    }
+
+    public function storeCheckout(Request $request)
+    {
+        // Validate the request data
+        $validator = Validator::make($request->all(), [
+            'first_name' => 'required|string|max:255',
+            'last_name' => 'required|string|max:255',
+            // Add more validation rules as needed
+            'email' => 'required|email',
+            'phone' => 'required|numeric',
+            'address' => 'required|string',
+            'city' => 'required|string',
+            'state' => 'required|string',
+            'zip_code' => 'required|numeric',
+            'price' => 'required|numeric',
+            'user_id' => 'required|numeric',
+        ]);
+
+        // Check if validation fails
+        if ($validator->fails()) {
+            return Redirect::back()->withErrors($validator)->withInput();
+        }
+
+        // Proceed with order creation if validation passes
+        $checkout = Order::create($validator->validated());
+        return view('products.pay');
+        //return Redirect::route('payment.process', ['orderId' => $checkout->id])->with('success', 'Order placed successfully, proceed to payment.');
+
+
+    }
+
+    public function success()
+    {
+        $deleteCart = Cart::where('user_id', Auth::user()->id);
+        $deleteCart->delete();
+        if ($deleteCart) {
+            Session::forget('price');
+            return view('products.success');
         }
     }
 }

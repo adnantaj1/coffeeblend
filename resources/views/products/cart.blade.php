@@ -75,7 +75,7 @@
         <div class="row justify-content-end">
             <div class="col col-lg-3 col-md-6 mt-5 cart-wrap ftco-animate">
                 <div class="cart-total mb-3">
-                    <h3>Cart Totals</h3>
+                    <h3 style="color: white" >Cart Totals</h3>
                     <p class="d-flex">
                         <span>Subtotal</span>
                         <span>${{$totalPrice}}</span>
@@ -90,7 +90,11 @@
                         <span>${{$totalPrice}}</span>
                     </p>
                 </div>
-                <p class="text-center"><a href="checkout.html" class="btn btn-primary py-3 px-4">Proceed to Checkout</a></p>
+                <form  method="POST" action="{{route('prepare.checkout')}}">
+                    @csrf
+                    <input name="price" type="hidden" value="{{$totalPrice}}">
+                    <button   class="btn btn-primary py-3 px-4">Proceed to Checkout</button>
+                </form>
             </div>
     </div>
 </section>
