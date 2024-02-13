@@ -90,7 +90,7 @@ h1, h2, h3, h4, h5,
 			color: $white;
 		}
 	}
-	
+
 	.navbar-nav {
 		> .nav-item {
 			> .nav-link {
@@ -137,7 +137,7 @@ h1, h2, h3, h4, h5,
 				}
 			}
 
-			
+
 			&.ftco-seperator {
 				position: relative;
 				margin-left: 20px;
@@ -235,7 +235,7 @@ h1, h2, h3, h4, h5,
 			outline: none !important;
 		}
 	}
-	
+
 	&.scrolled  {
 		position: fixed;
 		right: 0;
@@ -318,7 +318,7 @@ h1, h2, h3, h4, h5,
 			transition: .3s all ease-out;
 		}
 		&.sleep {
-			transition: .3s all ease-out;	
+			transition: .3s all ease-out;
 		}
 
 		.navbar-brand {
@@ -355,7 +355,7 @@ h1, h2, h3, h4, h5,
 			opacity: 1;
 		}
 	}
-	
+
 	.owl-nav {
 		position: absolute;
 		top: 50%;
@@ -546,12 +546,12 @@ h1, h2, h3, h4, h5,
 					top: 50%;
 					display: block;
 					transform: translate(-50%, -50%);
-				}	
+				}
 				&.active {
 					border: 2px solid rgba(255,255,255,1);
-					span {	
+					span {
 						background: rgba(255,255,255,1);
-					}	
+					}
 				}
 			}
 		}
@@ -571,7 +571,7 @@ h1, h2, h3, h4, h5,
 		text-align: center;
 		display: inline-block;
 	}
-} 
+}
 
 
 .bg-light {
@@ -830,7 +830,7 @@ h1, h2, h3, h4, h5,
 				transform: rotate(135deg);
 			}
 		}
-	}	
+	}
 }
 
 //PRICING
@@ -1169,7 +1169,7 @@ h1, h2, h3, h4, h5,
 		border: 1px solid rgba(255,255,255,.1) !important;
 		height: 58px!important;
 		padding-left: 15px;
-		padding-right: 15px; 
+		padding-right: 15px;
 		background: transparent!important;
 		color: rgba(255,255,255,.4) !important;
 		font-size: 14px;
@@ -1296,7 +1296,7 @@ h1, h2, h3, h4, h5,
 		border-bottom: 1px solid rgba(255,255,255,.2) !important;
 		height: 58px!important;
 		padding-left: 0;
-		padding-right: 0; 
+		padding-right: 0;
 		background: transparent!important;
 		color: rgba(255,255,255,.9)!important;
 		font-size: 13px;
@@ -1515,7 +1515,7 @@ textarea.form-control {
 				border: 2px solid $black;
 			}
 		}
-		
+
 	}
 }
 
@@ -1802,8 +1802,8 @@ textarea.form-control {
 				background: $primary;
 				transform: rotate(135deg);
 				margin: 0 auto;
-			}	
-		}	
+			}
+		}
 	}
 }
 .heading-section-dark{
@@ -1869,9 +1869,9 @@ textarea.form-control {
 .mfp-with-zoom.mfp-bg {
   opacity: 0;
   -webkit-backface-visibility: hidden;
-  -webkit-transition: all 0.3s ease-out; 
-  -moz-transition: all 0.3s ease-out; 
-  -o-transition: all 0.3s ease-out; 
+  -webkit-transition: all 0.3s ease-out;
+  -moz-transition: all 0.3s ease-out;
+  -o-transition: all 0.3s ease-out;
   transition: all 0.3s ease-out;
 }
 
@@ -1882,7 +1882,7 @@ textarea.form-control {
     opacity: 0.8;
 }
 
-.mfp-with-zoom.mfp-removing .mfp-container, 
+.mfp-with-zoom.mfp-removing .mfp-container,
 .mfp-with-zoom.mfp-removing.mfp-bg {
   opacity: 0;
 }
@@ -2025,7 +2025,7 @@ textarea.form-control {
 	}
 }
 
-//blocks 
+//blocks
 .block-20 {
 	overflow: hidden;
 	background-size: cover;
@@ -2080,7 +2080,7 @@ textarea.form-control {
 	ul {
 		padding: 0;
 		li {
-			
+
 			&, > a {
 				display: table;
 				line-height: 1.5;
@@ -2099,7 +2099,7 @@ textarea.form-control {
 				padding-top: 2px;
 				color: rgba($white, 1);
 			}
-			
+
 		}
 	}
 }
@@ -2119,11 +2119,11 @@ textarea.form-control {
 		p {
 		}
 	}
-} 
+}
 
 
 
-//### .block-18 
+//### .block-18
 .block-18 {
 	.icon, .text {
 	}
@@ -2195,7 +2195,7 @@ textarea.form-control {
 		border-bottom: 1px solid rgba(255,255,255,.08) !important;
 		height: 58px!important;
 		padding-left: 0;
-		padding-right: 0; 
+		padding-right: 0;
 		background: transparent!important;
 		color: rgba(255,255,255,.9) !important;
 		font-size: 13px;
@@ -2304,7 +2304,7 @@ textarea.form-control {
 				&:hover, &:focus {
 					color: $white;
 				}
-			}	
+			}
 		}
 	}
 	.prev {
@@ -2448,7 +2448,7 @@ textarea.form-control {
 	padding: 25px;
 	font-size: 15px;
 	width: 100%;
-	
+
 	float: left;
 	*:last-child {
 		margin-bottom: 0;
@@ -2501,7 +2501,7 @@ textarea.form-control {
 	background-color: rgba(255,255,255,0.9);
 	box-shadow: 0px 24px 64px rgba(0,0,0,0.24);
 	border-radius:16px;
-	opacity: 0; 
+	opacity: 0;
 	visibility: hidden;
 	transition: opacity .2s ease-out, visibility 0s linear .2s;
 	z-index:1000;

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Products;
 
 use App\Http\Controllers\Controller;
+use App\Models\Product\Booking;
 use Illuminate\Http\Request;
 use App\Models\Product\Product;
 use App\Models\Product\Cart;
@@ -123,6 +124,18 @@ class ProductsController extends Controller
         if ($deleteCart) {
             Session::forget('price');
             return view('products.success');
+        }
+    }
+
+    public function bookTables(Request $request)
+    {
+
+        if ($request->date > date('n/j/y')) {
+            $bookTables = Booking::create($request->all());
+            if ($bookTables)
+                return Redirect::route('home')->with(['booking' => "Your Table is Booked "]);
+        } else {
+            return Redirect::route('home')->with(['date' => "Select a date in future. "]);
         }
     }
 }

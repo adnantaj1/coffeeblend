@@ -5,7 +5,7 @@
     <div style="background: rgba(0, 0, 0, 0.6); padding: 40px; border-radius: 8px; width: auto; max-width: 600px;">
         <div class="text-center" style="color: #fff; margin-bottom: 20px;">
             <h1>Login</h1>
-            <p><a href="index.html" style="color: #f8f9fa; text-decoration: underline;">Home</a> / Login</p>
+            <p><a href="/home" style="color: #f8f9fa; text-decoration: underline;">Home</a> / Login</p>
         </div>
         <form method="POST" action="{{ route('login') }}" style="color: #fff;">
             @csrf
