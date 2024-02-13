@@ -40,5 +40,7 @@ Route::post('products/checkout', [App\Http\Controllers\Products\ProductsControll
 
 Route::get('products/success', [App\Http\Controllers\Products\ProductsController::class, 'success'])->name('products.pay.success')->middleware('check.for.price');
 
-
+// booking table
 Route::post('products/booking', [App\Http\Controllers\Products\ProductsController::class, 'bookTables'])->name('booking.tables');
+//Menu
+Route::get('products/menu', [App\Http\Controllers\Products\ProductsController::class, 'menu'])->name('products.menu');

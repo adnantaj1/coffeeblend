@@ -1,25 +1,6 @@
 @extends('layouts.app')
 
 @section('content')
-    {{-- <div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">{{ __('Dashboard') }}</div>
-
-                <div class="card-body">
-                    @if (session('status'))
-                        <div class="alert alert-success" role="alert">
-                            {{ session('status') }}
-                        </div>
-                    @endif
-
-                    {{ __('You are logged in!') }}
-                </div>
-            </div>
-        </div>
-    </div>
-</div> --}}
     <section class="home-slider owl-carousel">
         <div class="slider-item" style="background-image: url('{{ asset('assets/images/bg_1.jpg') }}');">
             <div class="overlay"></div>
@@ -76,12 +57,9 @@
         </div>
     </section>
     <div class="container">
-        @if (Session::has('date'))
-            <p class="alert {{ Session::get('alert-class', 'alert-info') }}"> {{ Session::get('date') }}</p>
-        @elseif (Session::has('booking'))
+        @if (Session::has('booking'))
             <p class="alert {{ Session::get('alert-class', 'alert-info') }}"> {{ Session::get('booking') }}</p>
         @endif
-
     </div>
     <section class="ftco-intro">
         <div class="container-wrap">
@@ -117,40 +95,51 @@
                         @csrf
                         <div class="d-md-flex">
                             <div class="form-group">
+                                <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">
                                 <input type="text" name="first_name" class="form-control" placeholder="First Name">
+                                @error('first_name')
+                                    <span class="text-danger">{{ $message }}</span>
+                                @enderror
                             </div>
                             <div class="form-group ml-md-4">
                                 <input type="text" name="last_name" class="form-control" placeholder="Last Name">
+                                @error('last_name')
+                                    <span class="text-danger">{{ $message }}</span>
+                                @enderror
                             </div>
                         </div>
                         <div class="d-md-flex">
                             <div class="form-group">
                                 <div class="input-wrap">
                                     <div class="icon"><span class="ion-md-calendar"></span></div>
-                                    <input type="text" name="date" class="form-control appointment_date"
-                                        placeholder="Date">
+                                    <input type="text" name="date" class="form-control appointment_date" placeholder="Date">
                                 </div>
+                                @error('date')
+                                    <span class="text-danger">{{ $message }}</span>
+                                @enderror
                             </div>
                             <div class="form-group ml-md-4">
                                 <div class="input-wrap">
                                     <div class="icon"><span class="ion-ios-clock"></span></div>
-                                    <input type="text" name="time" class="form-control appointment_time"
-                                        placeholder="Time">
+                                    <input type="text" name="time" class="form-control appointment_time" placeholder="Time">
                                 </div>
-                            </div>
-                            <div class="form-group ml-md-4">
-                                <div class="input-wrap">
-                                    <input type="hidden" value="{{ Auth::user()->id }}" name="user_id"
-                                        class="form-control appointment_time" placeholder="Time">
-                                </div>
+                                @error('time')
+                                    <span class="text-danger">{{ $message }}</span>
+                                @enderror
                             </div>
                             <div class="form-group ml-md-4">
                                 <input type="text" name="phone" class="form-control" placeholder="Phone">
+                                @error('phone')
+                                    <span class="text-danger">{{ $message }}</span>
+                                @enderror
                             </div>
                         </div>
                         <div class="d-md-flex">
                             <div class="form-group">
                                 <textarea name="message" id="" cols="30" rows="2" class="form-control" placeholder="Message"></textarea>
+                                @error('message')
+                                    <span class="text-danger">{{ $message }}</span>
+                                @enderror
                             </div>
                             <div class="form-group ml-md-4">
                                 <input type="submit" name="submit" value="Book" class="btn btn-white py-3 px-4">

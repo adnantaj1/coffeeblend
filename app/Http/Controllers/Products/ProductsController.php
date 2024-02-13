@@ -13,6 +13,8 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Validator;
 
+use function PHPSTORM_META\type;
+
 class ProductsController extends Controller
 {
     public function singleProduct($id)
@@ -129,13 +131,41 @@ class ProductsController extends Controller
 
     public function bookTables(Request $request)
     {
+        // Define validation rules
+        $rules = [
+            'first_name' => 'required|string|max:255',
+            'last_name' => 'required|string|max:255',
+            'date' => 'required|date|after_or_equal:today',
+            'time' => 'required',
+            'phone' => 'required|numeric',
+            'message' => 'nullable|string',
+            'user_id' => 'required|numeric',
+        ];
 
-        if ($request->date > date('n/j/y')) {
-            $bookTables = Booking::create($request->all());
-            if ($bookTables)
-                return Redirect::route('home')->with(['booking' => "Your Table is Booked "]);
-        } else {
-            return Redirect::route('home')->with(['date' => "Select a date in future. "]);
+        // Validate the request data
+        $validator = Validator::make($request->all(), $rules);
+
+        // Check if validation fails
+        if ($validator->fails()) {
+            return Redirect::back()->withErrors($validator)->withInput();
         }
+
+        // Create booking if validation passes
+        $bookingData = $validator->validated();
+        $bookTables = Booking::create($bookingData);
+
+        // Redirect with success message
+        return redirect()->route('home')->with('booking', 'Table booked successfully!');
+    }
+
+    public function menu()
+    {
+        $menu = Product::select()->get();
+        $desserts = Product::select()->where("type", "desserts")
+            ->orderby('id', 'desc')->take(8)->get();
+        $drinks = Product::select()->where("type", "drinks")
+            ->orderby('id', 'desc')->take(8)->get();
+
+        return view('products.menu', compact('desserts', 'drinks'));
     }
 }
