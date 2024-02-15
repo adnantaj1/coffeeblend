@@ -22,9 +22,16 @@ class ProductsController extends Controller
         $product = Product::find($id);
         $retlatedProducts = Product::where('type', $product->type)
             ->where('id', '!=', $id)->take(4)->orderby('id', 'desc')->get();
-        //checking for product in cart
-        $checkingInCart = Cart::where('product_id', $id)
-            ->where('user_id', Auth::user()->id)->count();
+        // Check if there is an authenticated user before checking the cart
+        if (Auth::check()) {
+            $checkingInCart = Cart::where('product_id', $id)
+                ->where('user_id', Auth::user()->id)
+                ->count();
+        } else {
+            // If no user is authenticated, set $checkingInCart to 0 or another suitable default value
+            $checkingInCart = 0;
+        }
+
         return view('products.productSingle', compact('product', 'retlatedProducts', 'checkingInCart'));
     }
 
@@ -49,13 +56,20 @@ class ProductsController extends Controller
 
     public function cart()
     {
-        $cartProducts = Cart::where('user_id', Auth::user()->id)
-            ->orderby('id', 'desc')->get();
-
-        $totalPrice = Cart::where('user_id', Auth::user()->id)->sum('price');
+        if (Auth::check()) {
+            $userId = Auth::user()->id;
+            $cartProducts = Cart::where('user_id', $userId)->orderby('id', 'desc')->get();
+            $totalPrice = Cart::where('user_id', $userId)->sum('price');
+        } else {
+            $cartProducts = collect([]);
+            $totalPrice = 0;
+            // Optionally, redirect to login page or show a message that the user needs to be logged in
+            // return redirect()->route('login')->with('error', 'You need to be logged in to view the cart.');
+        }
 
         return view('products.cart', compact('cartProducts', 'totalPrice'));
     }
+
 
     public function deleteProductCart($id)
     {
@@ -131,7 +145,7 @@ class ProductsController extends Controller
 
     public function bookTables(Request $request)
     {
-        // Define validation rules
+        // Define validation rules excluding 'user_id'
         $rules = [
             'first_name' => 'required|string|max:255',
             'last_name' => 'required|string|max:255',
@@ -139,7 +153,6 @@ class ProductsController extends Controller
             'time' => 'required',
             'phone' => 'required|numeric',
             'message' => 'nullable|string',
-            'user_id' => 'required|numeric',
         ];
 
         // Validate the request data
@@ -150,13 +163,21 @@ class ProductsController extends Controller
             return Redirect::back()->withErrors($validator)->withInput();
         }
 
-        // Create booking if validation passes
-        $bookingData = $validator->validated();
+        // Ensure user is authenticated before creating a booking
+        if (!Auth::check()) {
+            return redirect()->route('login')->with('error', 'You must be logged in to book a table.');
+        }
+
+        // Append 'user_id' to the validated data
+        $bookingData = $validator->validated() + ['user_id' => Auth::id()];
+
+        // Create booking
         $bookTables = Booking::create($bookingData);
 
         // Redirect with success message
         return redirect()->route('home')->with('booking', 'Table booked successfully!');
     }
+
 
     public function menu()
     {

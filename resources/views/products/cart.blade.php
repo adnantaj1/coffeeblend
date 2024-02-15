@@ -58,7 +58,7 @@
                                         <input type="number" name="quantity" class="form-control text-center"
                                             value="1" min="1" max="100">
                                     </td>
-                                    <td class="align-middle">$4.90</td>
+                                    <td class="align-middle">${{$cartProduct->price}}</td>
                                     <td class="align-middle">
                                         <a href="{{ route('cart.product.delete', ['id' => $cartProduct->product_id]) }}"
                                             class="btn btn-danger" onclick="return confirm('Are you sure?')">Delete</a>

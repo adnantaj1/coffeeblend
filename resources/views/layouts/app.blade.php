@@ -93,7 +93,7 @@
         <!-- start navbar -->
         <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
             <div class="container">
-                <a class="navbar-brand" href="{{ url('/') }}">Coffee<small>Blend</small></a>
+                <a class="navbar-brand" href="{{ url('/home') }}">Coffee<small>Blend</small></a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#ftco-nav"
                     aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="oi oi-menu"></span> Menu
@@ -101,14 +101,15 @@
                 <div class="collapse navbar-collapse" id="ftco-nav">
                     <ul class="navbar-nav ml-auto">
                         <li class="nav-item active"><a href="{{ url('/home') }}" class="nav-link">Home</a></li>
-                        <li class="nav-item"><a href="{{route('products.menu')}}" class="nav-link">Menu</a></li>
-                        <li class="nav-item"><a href="services.html" class="nav-link">Services</a></li>
-                        <li class="nav-item"><a href="about.html" class="nav-link">About</a></li>
-                        <li class="nav-item"><a href="contact.html" class="nav-link">Contact</a></li>
-                        <li class="nav-item cart"><a href="{{route('cart')}}" class="nav-link"><span class="icon icon-shopping_cart"></span></a>
-                        @guest
-                            @if (Route::has('login'))
-                                <li class="nav-item"><a href="{{ route('login') }}" class="nav-link">Login</a></li>
+                        <li class="nav-item"><a href="{{ route('products.menu') }}" class="nav-link">Menu</a></li>
+                        <li class="nav-item"><a href="{{ route('page.show', 'services') }}" class="nav-link">Services</a></li>
+                        <li class="nav-item"><a href="{{ route('page.show', 'about') }}" class="nav-link">About</a></li>
+                        <li class="nav-item"><a href="{{ route('page.show', 'contact') }}" class="nav-link">Contact</a></li>
+                        <li class="nav-item cart"><a href="{{ route('cart') }}" class="nav-link"><span
+                                    class="icon icon-shopping_cart"></span></a>
+                            @guest
+                                @if (Route::has('login'))
+                            <li class="nav-item"><a href="{{ route('login') }}" class="nav-link">Login</a></li>
                             @endif
                             @if (Route::has('register'))
                                 <li class="nav-item"><a href="{{ route('register') }}" class="nav-link">Register</a></li>
@@ -121,6 +122,12 @@
                                 </a>
 
                                 <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                                    <a class="dropdown-item" href="{{ route('users.orders') }}">
+                                        My Orders
+                                    </a>
+                                    <a class="dropdown-item" href="{{ route('users.bookings') }}">
+                                        My Bookings
+                                    </a>
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                         onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">

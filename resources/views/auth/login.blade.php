@@ -1,6 +1,17 @@
 @extends('layouts.app')
 
 @section('content')
+
+<div class="container mt-4">
+    @if (Session::has('error'))
+        <div class="alert alert-success alert-dismissible fade show custom-alert-success" role="alert">
+            {{ Session::get('error') }}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    @endif
+</div>
 <section style="background-image: url('{{asset('assets/images/bg_1.jpg')}}'); background-size: cover; background-position: center center; height: 100vh; display: flex; align-items: center; justify-content: center;">
     <div style="background: rgba(0, 0, 0, 0.6); padding: 40px; border-radius: 8px; width: auto; max-width: 600px;">
         <div class="text-center" style="color: #fff; margin-bottom: 20px;">

@@ -12,7 +12,7 @@
                         <h1 class="mb-4">The Best Coffee Testing Experience</h1>
                         <p class="mb-4 mb-md-5">A small river named Duden flows by their place and supplies it with the
                             necessary regelialia.</p>
-                        <p><a href="#" class="btn btn-primary p-3 px-xl-4 py-xl-3">Order Now</a> <a href="#"
+                        <p><a href="{{ route('products.menu') }}" class="btn btn-primary p-3 px-xl-4 py-xl-3">Order Now</a> <a href="{{route('products.menu')}}"
                                 class="btn btn-white btn-outline-white p-3 px-xl-4 py-xl-3">View Menu</a></p>
                     </div>
 
@@ -30,7 +30,7 @@
                         <h1 class="mb-4">Amazing Taste &amp; Beautiful Place</h1>
                         <p class="mb-4 mb-md-5">A small river named Duden flows by their place and supplies it with the
                             necessary regelialia.</p>
-                        <p><a href="#" class="btn btn-primary p-3 px-xl-4 py-xl-3">Order Now</a> <a href="#"
+                        <p><a href="{{ route('products.menu') }}" class="btn btn-primary p-3 px-xl-4 py-xl-3">Order Now</a> <a href="{{route('products.menu')}}"
                                 class="btn btn-white btn-outline-white p-3 px-xl-4 py-xl-3">View Menu</a></p>
                     </div>
 
@@ -48,7 +48,7 @@
                         <h1 class="mb-4">Creamy Hot and Ready to Serve</h1>
                         <p class="mb-4 mb-md-5">A small river named Duden flows by their place and supplies it with the
                             necessary regelialia.</p>
-                        <p><a href="#" class="btn btn-primary p-3 px-xl-4 py-xl-3">Order Now</a> <a href="#"
+                        <p><a href="{{ route('products.menu') }}" class="btn btn-primary p-3 px-xl-4 py-xl-3">Order Now</a> <a href="{{route('products.menu')}}"
                                 class="btn btn-white btn-outline-white p-3 px-xl-4 py-xl-3">View Menu</a></p>
                     </div>
 
@@ -95,7 +95,7 @@
                         @csrf
                         <div class="d-md-flex">
                             <div class="form-group">
-                                <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">
+
                                 <input type="text" name="first_name" class="form-control" placeholder="First Name">
                                 @error('first_name')
                                     <span class="text-danger">{{ $message }}</span>
@@ -224,7 +224,7 @@
                         <p class="mb-4">Far far away, behind the word mountains, far from the countries Vokalia and
                             Consonantia, there live the blind texts. Separated they live in Bookmarksgrove right at the
                             coast of the Semantics, a large language ocean.</p>
-                        <p><a href="#" class="btn btn-primary btn-outline-primary px-4 py-3">View Full Menu</a></p>
+                        <p><a href="{{route('products.menu')}}" class="btn btn-primary btn-outline-primary px-4 py-3">View Full Menu</a></p>
                     </div>
                 </div>
                 <div class="col-md-6">
@@ -322,7 +322,7 @@
                 @foreach ($products as $product)
                     <div class="col-md-3">
                         <div class="menu-entry">
-                            <a href="#" class="img"
+                            <a href="{{ route('product.single', $product->id) }}" class="img"
                                 style="background-image: url('{{ asset('assets/images/' . $product->image) }}');"></a>
                             <div class="text text-center pt-4">
                                 <h3><a href="{{ route('product.single', $product->id) }}">{{ $product->name }}</a></h3>
@@ -334,39 +334,6 @@
                         </div>
                     </div>
                 @endforeach
-                {{-- <div class="col-md-3">
-            <div class="menu-entry">
-                    <a href="#" class="img" style="background-image: url('{{asset('assets/images/menu-2.jpg')}}');"></a>
-                    <div class="text text-center pt-4">
-                        <h3><a href="#">Coffee Capuccino</a></h3>
-                        <p>A small river named Duden flows by their place and supplies</p>
-                        <p class="price"><span>$5.90</span></p>
-                        <p><a href="#" class="btn btn-primary btn-outline-primary">Add to Cart</a></p>
-                    </div>
-                </div>
-        </div>
-        <div class="col-md-3">
-            <div class="menu-entry">
-                    <a href="#" class="img" style="background-image: url('{{asset('assets/images/menu-3.jpg')}}');"></a>
-                    <div class="text text-center pt-4">
-                        <h3><a href="#">Coffee Capuccino</a></h3>
-                        <p>A small river named Duden flows by their place and supplies</p>
-                        <p class="price"><span>$5.90</span></p>
-                        <p><a href="#" class="btn btn-primary btn-outline-primary">Add to Cart</a></p>
-                    </div>
-                </div>
-        </div>
-        <div class="col-md-3">
-            <div class="menu-entry">
-                    <a href="#" class="img" style="background-image: url('{{asset('assets/images/menu-4.jpg')}}');"></a>
-                    <div class="text text-center pt-4">
-                        <h3><a href="#">Coffee Capuccino</a></h3>
-                        <p>A small river named Duden flows by their place and supplies</p>
-                        <p class="price"><span>$5.90</span></p>
-                        <p><a href="#" class="btn btn-primary btn-outline-primary">Add to Cart</a></p>
-                    </div>
-                </div>
-        </div> --}}
             </div>
         </div>
     </section>
@@ -418,7 +385,7 @@
         <div class="container">
             <div class="row justify-content-center mb-5">
                 <div class="col-md-7 heading-section text-center ftco-animate">
-                    <span class="subheading">Testimony</span>
+                    <span class="subheading" style="color: white">Testimony</span>
                     <h2 class="mb-4">Customers Says</h2>
                     <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live
                         the blind texts.</p>
@@ -427,82 +394,19 @@
         </div>
         <div class="container-wrap">
             <div class="row d-flex no-gutters">
+                @foreach ($reviews as $review)
                 <div class="col-lg align-self-sm-end ftco-animate">
                     <div class="testimony">
                         <blockquote>
-                            <p>&ldquo;Even the all-powerful Pointing has no control about the blind texts it is an almost
-                                unorthographic life One day however a small.&rdquo;</p>
+                            <p>&ldquo;{{$review->review}}&rdquo;</p>
                         </blockquote>
                         <div class="author d-flex mt-4">
-                            <div class="image mr-3 align-self-center">
-                                <img src="images/person_1.jpg" alt="">
-                            </div>
-                            <div class="name align-self-center">Louise Kelly <span class="position">Illustrator
-                                    Designer</span></div>
+                            <div class="name align-self-center">{{$review->name}} <span class="position">Caring
+                                    Customer</span></div>
                         </div>
                     </div>
                 </div>
-                <div class="col-lg align-self-sm-end">
-                    <div class="testimony overlay">
-                        <blockquote>
-                            <p>&ldquo;Even the all-powerful Pointing has no control about the blind texts it is an almost
-                                unorthographic life One day however a small line of blind text by the name of Lorem Ipsum
-                                decided to leave for the far World of Grammar.&rdquo;</p>
-                        </blockquote>
-                        <div class="author d-flex mt-4">
-                            <div class="image mr-3 align-self-center">
-                                <img src="{{ asset('images/person_2.jpg') }}" alt="">
-                            </div>
-                            <div class="name align-self-center">Louise Kelly <span class="position">Illustrator
-                                    Designer</span></div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg align-self-sm-end ftco-animate">
-                    <div class="testimony">
-                        <blockquote>
-                            <p>&ldquo;Even the all-powerful Pointing has no control about the blind texts it is an almost
-                                unorthographic life One day however a small line of blind text by the name. &rdquo;</p>
-                        </blockquote>
-                        <div class="author d-flex mt-4">
-                            <div class="image mr-3 align-self-center">
-                                <img src="{{ asset('images/person_3.jpg') }}" alt="">
-                            </div>
-                            <div class="name align-self-center">Louise Kelly <span class="position">Illustrator
-                                    Designer</span></div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg align-self-sm-end">
-                    <div class="testimony overlay">
-                        <blockquote>
-                            <p>&ldquo;Even the all-powerful Pointing has no control about the blind texts it is an almost
-                                unorthographic life One day however.&rdquo;</p>
-                        </blockquote>
-                        <div class="author d-flex mt-4">
-                            <div class="image mr-3 align-self-center">
-                                <img src="{{ asset('images/person_2.jpg') }}" alt="">
-                            </div>
-                            <div class="name align-self-center">Louise Kelly <span class="position">Illustrator
-                                    Designer</span></div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg align-self-sm-end ftco-animate">
-                    <div class="testimony">
-                        <blockquote>
-                            <p>&ldquo;Even the all-powerful Pointing has no control about the blind texts it is an almost
-                                unorthographic life One day however a small line of blind text by the name. &rdquo;</p>
-                        </blockquote>
-                        <div class="author d-flex mt-4">
-                            <div class="image mr-3 align-self-center">
-                                <img src="{{ asset('images/person_3.jpg') }}" alt="">
-                            </div>
-                            <div class="name align-self-center">Louise Kelly <span class="position">Illustrator
-                                    Designer</span></div>
-                        </div>
-                    </div>
-                </div>
+                @endforeach
             </div>
         </div>
     </section>

@@ -78,8 +78,9 @@
                     <h3 class="mb-5 heading-pricing ftco-animate" style="color: white">Desserts</h3>
                     @foreach ($desserts as $dessert)
                         <div class="pricing-entry d-flex ftco-animate">
+                            <a href="{{ route('product.single', $dessert->id) }}" style="text-decoration: none;">
                             <div class="img"
-                                style="background-image: url({{ asset('assets/images/' . $dessert->image . '') }});"></div>
+                                style="background-image: url({{ asset('assets/images/' . $dessert->image . '') }});"></div></a>
                             <div class="desc pl-3">
                                 <div class="d-flex text align-items-center">
                                     <h3><span>Cornish - Mackerel</span></h3>
@@ -97,7 +98,9 @@
                     <h3 class="mb-5 heading-pricing ftco-animate" style="color: white">Drinks</h3>
                     @foreach ($drinks as $drink)
                         <div class="pricing-entry d-flex ftco-animate">
-                            <div class="img" style="background-image: url({{asset('assets/images/'.$drink->image.'')}});"></div>
+                            <a href="{{ route('product.single', $drink->id) }}" style="text-decoration: none;">
+                            <div class="img"
+                                style="background-image: url({{ asset('assets/images/' . $drink->image . '') }});"></div></a>
                             <div class="desc pl-3">
                                 <div class="d-flex text align-items-center">
                                     <h3><span>Sea Trout</span></h3>
@@ -144,39 +147,46 @@
                                     aria-labelledby="v-pills-2-tab">
                                     <div class="row">
                                         @foreach ($drinks as $drink)
-                                        <div class="col-md-4 text-center">
-                                            <div class="menu-wrap">
-                                                <a href="{{route('product.single',$drink->id)}}" class="menu-img img mb-4"
-                                                    style="background-image: url({{asset('assets/images/'.$drink->image.'')}});"></a>
-                                                <div class="text">
-                                                    <h3><a href="{{route('product.single',$drink->id)}}">{{$drink->name}}</a></h3>
-                                                    <p>{{$drink->description}}</p>
-                                                    <p class="price"><span>${{$drink->price}}</span></p>
-                                                    <p><a href="{{route('product.single',$drink->id)}}" class="btn btn-primary btn-outline-primary">Add to
-                                                            cart</a></p>
+                                            <div class="col-md-4 text-center">
+                                                <div class="menu-wrap">
+                                                    <a href="{{ route('product.single', $drink->id) }}"
+                                                        class="menu-img img mb-4"
+                                                        style="background-image: url({{ asset('assets/images/' . $drink->image . '') }});"></a>
+                                                    <div class="text">
+                                                        <h3><a
+                                                                href="{{ route('product.single', $drink->id) }}">{{ $drink->name }}</a>
+                                                        </h3>
+                                                        <p>{{ $drink->description }}</p>
+                                                        <p class="price"><span>${{ $drink->price }}</span></p>
+                                                        <p><a href="{{ route('product.single', $drink->id) }}"
+                                                                class="btn btn-primary btn-outline-primary">Add to
+                                                                cart</a></p>
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
                                         @endforeach
                                     </div>
                                 </div>
-                                <div class="tab-pane fade" id="v-pills-3" role="tabpanel"
-                                    aria-labelledby="v-pills-3-tab">
+                                <div class="tab-pane fade" id="v-pills-3" role="tabpanel" aria-labelledby="v-pills-3-tab">
                                     <div class="row">
                                         @foreach ($desserts as $dessert)
-                                        <div class="col-md-4 text-center">
-                                            <div class="menu-wrap">
-                                                <a href="{{route('product.single',$dessert->id)}}" class="menu-img img mb-4"
-                                                    style="background-image: url({{asset('assets/images/'.$dessert->image.'')}});"></a>
-                                                <div class="text">
-                                                    <h3><a href="{{route('product.single',$dessert->id)}}">{{$dessert->name}}</a></h3>
-                                                    <p>{{$dessert->description}}</p>
-                                                    <p class="price"><span>${{$dessert->price}}</span></p>
-                                                    <p><a href="{{route('product.single',$dessert->id)}}" class="btn btn-primary btn-outline-primary">Add
-                                                            to cart</a></p>
+                                            <div class="col-md-4 text-center">
+                                                <div class="menu-wrap">
+                                                    <a href="{{ route('product.single', $dessert->id) }}"
+                                                        class="menu-img img mb-4"
+                                                        style="background-image: url({{ asset('assets/images/' . $dessert->image . '') }});"></a>
+                                                    <div class="text">
+                                                        <h3><a
+                                                                href="{{ route('product.single', $dessert->id) }}">{{ $dessert->name }}</a>
+                                                        </h3>
+                                                        <p>{{ $dessert->description }}</p>
+                                                        <p class="price"><span>${{ $dessert->price }}</span></p>
+                                                        <p><a href="{{ route('product.single', $dessert->id) }}"
+                                                                class="btn btn-primary btn-outline-primary">Add
+                                                                to cart</a></p>
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
                                         @endforeach
                                     </div>
                                 </div>
