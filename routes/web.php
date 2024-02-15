@@ -67,4 +67,14 @@ Route::group(['prefix' => 'admin'], function () {
     Route::post('login', [App\Http\Controllers\Admins\AdminController::class, 'checkLogin'])->name('check.login');
 
     Route::get('index', [App\Http\Controllers\Admins\AdminController::class, 'index'])->name('admins.dashboard')->middleware("auth:admin");
+    //admins
+    Route::get('all-admins', [App\Http\Controllers\Admins\AdminController::class, 'displayAdmins'])->name('all.admins')->middleware("auth:admin");
+    Route::get('create-admins', [App\Http\Controllers\Admins\AdminController::class, 'createAdmins'])->name('create.admins')->middleware("auth:admin");
+    Route::post('create-admins', [App\Http\Controllers\Admins\AdminController::class, 'storeAdmins'])->name('store.admins')->middleware("auth:admin");
+
+    //Orders
+    Route::get('all-orders', [App\Http\Controllers\Admins\AdminController::class, 'displayOrders'])->name('all.orders')->middleware("auth:admin");
+    Route::get('detail-order/{id}', [App\Http\Controllers\Admins\AdminController::class, 'orderDetails'])->name('order.details')->middleware("auth:admin");
+
+    Route::delete('delete-order/{id}', [App\Http\Controllers\Admins\AdminController::class, 'deleteOrder'])->name('delete.order')->middleware("auth:admin");
 });

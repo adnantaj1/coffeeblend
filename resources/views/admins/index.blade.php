@@ -6,7 +6,7 @@
         <div class="card-body">
           <h5 class="card-title">Products</h5>
           <!-- <h6 class="card-subtitle mb-2 text-muted">Bootstrap 4.0.0 Snippet by pradeep330</h6> -->
-          <p class="card-text">number of products: 8</p>
+          <p class="card-text">number of products: {{$productsCount}}</p>
 
         </div>
       </div>
@@ -16,7 +16,7 @@
         <div class="card-body">
           <h5 class="card-title">Orders</h5>
 
-          <p class="card-text">number of orders: 4</p>
+          <p class="card-text">number of orders: {{$ordersCount}}</p>
 
         </div>
       </div>
@@ -26,7 +26,7 @@
         <div class="card-body">
           <h5 class="card-title">Bookings</h5>
 
-          <p class="card-text">number of bookings: 4</p>
+          <p class="card-text">number of bookings: {{$bookingsCount}}</p>
 
         </div>
       </div>
@@ -36,7 +36,7 @@
         <div class="card-body">
           <h5 class="card-title">Admins</h5>
 
-          <p class="card-text">number of admins: 3</p>
+          <p class="card-text">number of admins: {{$adminsCount}}</p>
 
         </div>
       </div>
