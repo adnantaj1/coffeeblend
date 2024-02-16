@@ -1,9 +1,21 @@
 @extends('layouts.admins')
 @section('content')
+
 <div class="container mt-4">
-    <h2>Order Details</h2>
+    <div class="alert-container">
+        @if (Session::has('success'))
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                {{ Session::get('success') }}
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        @endif
+    </div>
+    <h2 class="mb-4">Order Details</h2>
     <div class="table-responsive">
         <table class="table table-bordered">
+            <!-- Table contents -->
             <thead>
                 <tr>
                     <th style="width: 30%;">Field</th>
@@ -59,50 +71,43 @@
             </tbody>
         </table>
     </div>
-
-    <!-- Dropdown for updating status -->
-    <div class="mb-3">
-        <label for="statusDropdown" class="form-label">Update Status</label>
-        <select class="form-select" id="statusDropdown" onchange="updateOrderStatus({{ $order->id }}, this.value)">
-            <option selected>Select Status</option>
-            <option value="Pending">Pending</option>
-            <option value="Processing">Processing</option>
-            <option value="Completed">Completed</option>
-            <option value="Cancelled">Cancelled</option>
-        </select>
+    <div class="row mt-4">
+        <div class="col-md-6">
+            <h4>Update Order Status</h4>
+            <form action="{{ route('update-status', $order->id) }}" method="POST" class="form-inline">
+                @csrf
+                @method('PUT')
+                <div class="form-group mb-2">
+                    <select name="status">
+                        <option value="Pending" {{ $order->status == 'Pending' ? 'selected' : '' }}>Pending</option>
+                        <option value="Processing" {{ $order->status == 'Processing' ? 'selected' : '' }}>Processing</option>
+                        <option value="Completed" {{ $order->status == 'Completed' ? 'selected' : '' }}>Completed</option>
+                        <option value="Cancelled" {{ $order->status == 'Cancelled' ? 'selected' : '' }}>Cancelled</option>
+                    </select>
+                </div>
+                <button type="submit" class="btn btn-primary mb-2 ml-2">Update Status</button>
+            </form>
+        </div>
+        <div class="col-md-6 text-right">
+            <h4>Delete Order</h4>
+            <form action="{{route('delete.order', $order->id)}}" method="POST">
+                @csrf
+                @method('DELETE')
+                <button type="submit" class="btn btn-danger">Delete Order</button>
+            </form>
+        </div>
     </div>
-
-    <!-- Delete button -->
-    {{-- {{ route('order.delete', $order->id) }} --}}
-    <form action="{{route('delete.order', $order->id)}}" method="POST">
-        @csrf
-        @method('DELETE')
-        <button type="submit" class="btn btn-danger">Delete Order</button>
-    </form>
 </div>
 
-<script>
-function updateOrderStatus(orderId, status) {
-    // AJAX call to update the status
-    fetch(`/path-to-update-status/${orderId}`, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
-        },
-        body: JSON.stringify({ status: status })
-    })
-    .then(response => response.json())
-    .then(data => {
-        console.log(data);
-        if(data.success) {
-            // Handle success
-            alert('Order status updated successfully');
-            location.reload(); // Reload the page to reflect changes
-        }
-    })
-    .catch(error => console.error('Error:', error));
-}
-</script>
+<style>
+    .alert-container {
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        width: auto;
+        z-index: 1050;
+    }
+</style>
+
 
 @endsection

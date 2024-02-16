@@ -75,6 +75,17 @@ Route::group(['prefix' => 'admin'], function () {
     //Orders
     Route::get('all-orders', [App\Http\Controllers\Admins\AdminController::class, 'displayOrders'])->name('all.orders')->middleware("auth:admin");
     Route::get('detail-order/{id}', [App\Http\Controllers\Admins\AdminController::class, 'orderDetails'])->name('order.details')->middleware("auth:admin");
+    Route::put('update-status/{orderId}', [App\Http\Controllers\Admins\AdminController::class, 'updateStatus'])->name('update-status')->middleware("auth:admin");
+
 
     Route::delete('delete-order/{id}', [App\Http\Controllers\Admins\AdminController::class, 'deleteOrder'])->name('delete.order')->middleware("auth:admin");
+
+    //PRODUCTS
+    Route::get('all-products', [App\Http\Controllers\Admins\AdminController::class, 'displayProducts'])->name('all.products')->middleware("auth:admin");
+
+    //BOOKINGS
+    Route::get('all-bookings', [App\Http\Controllers\Admins\AdminController::class, 'displayBookings'])->name('all.bookings')->middleware("auth:admin");
+    Route::get('detail-booking/{id}', [App\Http\Controllers\Admins\AdminController::class, 'bookingDetails'])->name('booking.details')->middleware("auth:admin");
+    Route::delete('delete-booking/{id}', [App\Http\Controllers\Admins\AdminController::class, 'deleteBooking'])->name('delete.booking')->middleware("auth:admin");
+    Route::put('update-status-booking/{bookingId}', [App\Http\Controllers\Admins\AdminController::class, 'updateBookingStatus'])->name('update-bookingStatus')->middleware("auth:admin");
 });

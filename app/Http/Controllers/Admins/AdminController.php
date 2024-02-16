@@ -90,6 +90,20 @@ class AdminController extends Controller
             return view('admins.orderDetails', compact('order'));
         }
     }
+    //update status
+    public function updateStatus(Request $request, $orderId)
+    {
+        $order = Order::find($orderId);
+        if ($order) {
+            $order->status = $request->status;
+            $order->save();
+
+            return back()->with('success', 'Order status updated successfully.');
+        }
+
+        return back()->with('success', 'Order not found.');
+    }
+
 
     public function deleteOrder($id)
     {
@@ -99,5 +113,52 @@ class AdminController extends Controller
         if ($order) {
             return Redirect::route('all.orders')->with(['success' => "Order Deleted Successfully"]);
         }
+    }
+
+    //PRODUCTS
+    public function displayProducts()
+    {
+        $allProducts = Product::select()->orderby('id', 'desc')->get();
+        return  view('admins.allProducts', compact('allProducts'));
+    }
+
+    //BOOKINGS
+    public function displayBookings()
+    {
+        $allBookings = Booking::select()->orderby('id', 'desc')->get();
+        return  view('admins.allBookings', compact('allBookings'));
+    }
+
+    public function bookingDetails($id)
+    {
+        $booking = Booking::find($id);
+        //dd($order);
+        if ($booking) {
+            return view('admins.bookingDetails', compact('booking'));
+        }
+    }
+
+    public function deleteBooking($id)
+    {
+        $booking = Booking::find($id);
+        $booking->delete();
+        //dd($order);
+        if ($booking) {
+            return Redirect::route('all.bookings')->with(['success' => "Booking Deleted Successfully"]);
+        }
+    }
+
+    //update status
+    public function updateBookingStatus(Request $request, $bookingId)
+    {
+        $booking = Booking::find($bookingId);
+        if ($booking) {
+            $booking->status = $request->status;
+            $booking->save();
+
+            return back()->with('success', 'Booking status updated successfully.');
+        }
+
+        return back()->with('success', 'Booking not found.');
     }
 }

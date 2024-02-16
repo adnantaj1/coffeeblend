@@ -16,49 +16,45 @@
                 <div class="card shadow-sm">
                     <div class="card-body">
                         <div class="d-flex justify-content-between align-items-center mb-4">
-                            <h5 class="card-title mb-0">Orders</h5>
+                            <h5 class="card-title mb-0">Bookings</h5>
                         </div>
-                        @if ($allOrders->isNotEmpty())
+                        @if ($allBookings->isNotEmpty())
                             <div class="table-responsive">
                                 <table class="table table-striped table-hover">
                                     <thead class="thead-dark">
                                         <tr>
                                             <th scope="col">ID</th>
                                             <th scope="col">Name</th>
+                                            <th scope="col">Date</th>
+                                            <th scope="col">Time</th>
                                             <th scope="col">Phone</th>
-                                            <th scope="col">City</th>
-                                            <th scope="col">Zip Code</th>
-                                            <th scope="col">Price</th>
                                             <th scope="col">Status</th>
                                             <th scope="col">Details</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @foreach ($allOrders as $order)
+                                        @foreach ($allBookings as $booking)
                                             <tr>
-                                                <th scope="row">{{ $order->id }}</th>
-                                                <td>{{ $order->first_name }} {{ $order->last_name }}</td>
-                                                <td>{{ $order->phone }}</td>
-                                                <td>{{ $order->city }}</td>
-                                                <td>{{ $order->zip_code }}</td>
-                                                <td>{{ $order->price }}</td>
+                                                <th scope="row">{{ $booking->id }}</th>
+                                                <td>{{ $booking->first_name }} {{ $booking->last_name }}</td>
+                                                <td>{{ $booking->date }}</td>
+                                                <td>{{ $booking->time }}</td>
+                                                <td>{{ $booking->phone }}</td>
                                                 <td>
                                                     <span
-                                                        class="badge
-                                                            {{ $order->status === 'Pending'
-                                                                ? 'badge-secondary'
-                                                                : ($order->status === 'Processing'
-                                                                    ? 'badge-warning'
-                                                                    : ($order->status === 'Completed'
-                                                                        ? 'badge-success'
-                                                                        : ($order->status === 'Cancelled'
-                                                                            ? 'badge-danger'
-                                                                            : ''))) }}">
-                                                        {{ $order->status }}
+                                                        class="{{ $booking->status === 'Processing'
+                                                            ? 'badge badge-warning'
+                                                            : ($booking->status === 'Booked'
+                                                                ? 'badge badge-success'
+                                                                : ($booking->status === 'Cancelled'
+                                                                    ? 'badge badge-danger'
+                                                                    : '')) }}">
+                                                        {{ $booking->status }}
                                                     </span>
 
                                                 </td>
-                                                <td><a href="{{ route('order.details', ['id' => $order->id]) }}"
+
+                                                <td><a href="{{ route('booking.details', ['id' => $booking->id]) }}"
                                                         class="btn btn-outline-secondary"><i class="fas fa-info-circle"></i>
                                                         Details</a></td>
                                             </tr>
@@ -67,7 +63,7 @@
                                 </table>
                             </div>
                         @else
-                            <p>No Orders found.</p>
+                            <p>No Booking is found.</p>
                         @endif
                     </div>
                 </div>
