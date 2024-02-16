@@ -1,10 +1,24 @@
 @extends('layouts.admins')
 @section('content')
-
+<div class="container mt-4">
+    @if (Session::has('success'))
+        <div class="alert alert-success alert-dismissible fade show custom-alert-success" role="alert">
+            {{ Session::get('success') }}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    @endif
+</div>
 <section class="ftco-section ftco-cart">
     <div class="container">
         <div class="row">
             <div class="col-md-12 ftco-animate">
+                 <div class="mb-4 text-right">
+                    <a href="{{ route('create.product') }}" class="btn btn-primary">
+                        <i class="fas fa-plus-circle"></i> Create Product
+                    </a>
+                </div>
                 <div class="cart-list">
                     <table class="table">
                         <thead>
@@ -12,8 +26,10 @@
                                 <th scope="col">ID</th>
                                 <th scope="col">Image</th>
                                 <th scope="col">Product</th>
+                                <th scope="col">Type</th>
                                 <th scope="col">Price</th>
-                                <th scope="col">Details</th>
+                                <th scope="col">Update</th>
+                                <th scope="col">Remove</th>
                                 {{-- <th scope="col">Remove</th> --}}
                             </tr>
                         </thead>
@@ -28,14 +44,20 @@
                                     <td class="product-name align-middle">
                                         <h5>{{ $product->name }}</h5>
                                     </td>
+                                    <td class="align-middle">{{ $product->type }}</td>
                                     <td class="align-middle">${{ $product->price }}</td>
-                                    {{-- {{ route('order.details', ['id' => $order->id]) }} --}}
-                                    <td><a href="#" class="btn btn-outline-secondary"><i class="fas fa-info-circle"></i> Details</a></td>
-                                    {{-- <td class="align-middle">
-                                        <a href="{{ route('cart.product.delete', ['id' => $product->product_id]) }}"
-                                            class="btn btn-danger" onclick="return confirm('Are you sure?')">Delete</a>
-                                        </a>
-                                    </td> --}}
+                                    <td><a href="{{ route('product.details', ['id' => $product->id]) }}" class="btn btn-outline-secondary"><i class="fas fa-info-circle"></i> Update</a></td>
+                                    <td>
+
+                                        <form action="{{ route('delete.product', $product->id) }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this product?')">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="btn btn-danger">
+                                                 Delete
+                                            </button>
+                                        </form>
+                                    </td>
+
                                 </tr>
                             @endforeach
                         </tbody>

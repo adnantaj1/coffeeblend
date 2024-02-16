@@ -10,6 +10,8 @@ use App\Models\Product\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\File;
+
 
 class AdminController extends Controller
 {
@@ -121,6 +123,104 @@ class AdminController extends Controller
         $allProducts = Product::select()->orderby('id', 'desc')->get();
         return  view('admins.allProducts', compact('allProducts'));
     }
+
+    public function productDetails($id)
+    {
+        $product = Product::find($id);
+        //dd($order);
+        if ($product) {
+            return view('admins.productDetails', compact('product'));
+        }
+    }
+    public function createProduct()
+    {
+        return view('admins.createProduct');
+    }
+
+    public function storeProduct(Request $request)
+    {
+        // Validate the request data first
+        $validatedData = $request->validate([
+            'name' => 'required|string|max:255',
+            'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'price' => 'required|numeric',
+            'description' => 'required|string|max:1000',
+            'type' => 'required|string|max:255',
+        ]);
+
+        if ($request->hasFile('image')) {
+            $destinationPath = 'assets/images/'; // Define the destination path
+            $myimage = $request->image->getClientOriginalName(); // Get original file name
+            // Move the file to the destination path
+            $request->image->move(public_path($destinationPath), $myimage);
+
+            // Create the product with validated data
+            $product = Product::create([
+                'name' => $validatedData['name'],
+                'price' => $validatedData['price'],
+                'description' => $validatedData['description'],
+                'type' => $validatedData['type'],
+                'image' => $myimage, // Save the path of the image
+            ]);
+
+            // Check if the product was successfully created
+            if ($product) {
+                return Redirect::route('all.products')->with('success', "A new product has been created.");
+            }
+        }
+
+        // Handle failure
+        return Redirect::back()->with('success', "Something went wrong, unable to create the product.")->withInput();
+    }
+
+    // Update Product
+    public function updateProduct(Request $request, $id)
+    {
+        $validatedData = $request->validate([
+            'name' => 'required|string|max:255',
+            'price' => 'required|numeric',
+            'description' => 'required|string|max:1000',
+            'type' => 'required|string|max:255',
+            'image' => 'sometimes|image|mimes:jpeg,png,jpg,gif,svg|max:2048', // 'sometimes' allows the field to be nullable
+        ]);
+
+        $product = Product::findOrFail($id);
+        $currentImage = $product->image;
+
+        // Handle file upload
+        if ($request->hasFile('image')) {
+            $destinationPath = 'assets/images/';
+            $myimage = time() . '.' . $request->image->getClientOriginalExtension();
+            $request->image->move(public_path($destinationPath), $myimage);
+            $validatedData['image'] = "$myimage";
+
+            // Optionally delete old image
+            if (File::exists(public_path($currentImage))) {
+                File::delete(public_path($currentImage));
+            }
+        } else {
+            $validatedData['image'] = $currentImage; // Keep the current image if new one is not uploaded
+        }
+
+        $product->update($validatedData);
+
+        return Redirect::route('all.products')->with('success', 'Product witn updated successfully.');
+    }
+
+    //DELETE PRODUCT
+    public function deleteProduct($id)
+    {
+        $product = Product::find($id);
+        if (File::exists(public_path('assets/images/' . $product->image))) {
+            File::delete(public_path('assets/images/' . $product->image));
+        }
+        $product->delete();
+        //dd($order);
+        if ($product) {
+            return Redirect::route('all.products')->with(['success' => "Product Deleted Successfully"]);
+        }
+    }
+
 
     //BOOKINGS
     public function displayBookings()

@@ -83,11 +83,11 @@
                                 style="background-image: url({{ asset('assets/images/' . $dessert->image . '') }});"></div></a>
                             <div class="desc pl-3">
                                 <div class="d-flex text align-items-center">
-                                    <h3><span>Cornish - Mackerel</span></h3>
-                                    <span class="price">$20.00</span>
+                                    <h3><span>{{$dessert->name}}</span></h3>
+                                    <span class="price">${{$dessert->price}}</span>
                                 </div>
                                 <div class="d-block">
-                                    <p>A small river named Duden flows by their place and supplies</p>
+                                    <p>{{ \Illuminate\Support\Str::limit($dessert->description, 75, '...') }}</p>
                                 </div>
                             </div>
                         </div>
@@ -103,11 +103,11 @@
                                 style="background-image: url({{ asset('assets/images/' . $drink->image . '') }});"></div></a>
                             <div class="desc pl-3">
                                 <div class="d-flex text align-items-center">
-                                    <h3><span>Sea Trout</span></h3>
-                                    <span class="price">$49.91</span>
+                                    <h3><span>{{$drink->name}}</span></h3>
+                                    <span class="price">${{$drink->price}}</span>
                                 </div>
                                 <div class="d-block">
-                                    <p>A small river named Duden flows by their place and supplies</p>
+                                    <p>{{ \Illuminate\Support\Str::limit($drink->description, 75, '...') }}</p>
                                 </div>
                             </div>
                         </div>

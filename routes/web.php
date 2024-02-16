@@ -65,7 +65,6 @@ Route::group(['prefix' => 'users'], function () {
 Route::group(['prefix' => 'admin'], function () {
     Route::get('login', [App\Http\Controllers\Admins\AdminController::class, 'viewLogin'])->name('view.login')->middleware('check.for.auth');
     Route::post('login', [App\Http\Controllers\Admins\AdminController::class, 'checkLogin'])->name('check.login');
-
     Route::get('index', [App\Http\Controllers\Admins\AdminController::class, 'index'])->name('admins.dashboard')->middleware("auth:admin");
     //admins
     Route::get('all-admins', [App\Http\Controllers\Admins\AdminController::class, 'displayAdmins'])->name('all.admins')->middleware("auth:admin");
@@ -76,12 +75,17 @@ Route::group(['prefix' => 'admin'], function () {
     Route::get('all-orders', [App\Http\Controllers\Admins\AdminController::class, 'displayOrders'])->name('all.orders')->middleware("auth:admin");
     Route::get('detail-order/{id}', [App\Http\Controllers\Admins\AdminController::class, 'orderDetails'])->name('order.details')->middleware("auth:admin");
     Route::put('update-status/{orderId}', [App\Http\Controllers\Admins\AdminController::class, 'updateStatus'])->name('update-status')->middleware("auth:admin");
-
-
     Route::delete('delete-order/{id}', [App\Http\Controllers\Admins\AdminController::class, 'deleteOrder'])->name('delete.order')->middleware("auth:admin");
 
     //PRODUCTS
     Route::get('all-products', [App\Http\Controllers\Admins\AdminController::class, 'displayProducts'])->name('all.products')->middleware("auth:admin");
+    Route::get('detail-product/{id}', [App\Http\Controllers\Admins\AdminController::class, 'productDetails'])->name('product.details')->middleware("auth:admin");
+    Route::get('create-product', [App\Http\Controllers\Admins\AdminController::class, 'createProduct'])->name('create.product')->middleware("auth:admin");
+    Route::post('create-product', [App\Http\Controllers\Admins\AdminController::class, 'storeProduct'])->name('store.product')->middleware("auth:admin");
+    Route::delete('delete-product/{id}', [App\Http\Controllers\Admins\AdminController::class, 'deleteProduct'])->name('delete.product')->middleware("auth:admin");
+    Route::put('update-product/{id}', [App\Http\Controllers\Admins\AdminController::class, 'updateProduct'])->name('update.product')->middleware("auth:admin");
+
+
 
     //BOOKINGS
     Route::get('all-bookings', [App\Http\Controllers\Admins\AdminController::class, 'displayBookings'])->name('all.bookings')->middleware("auth:admin");
