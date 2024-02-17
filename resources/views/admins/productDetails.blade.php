@@ -29,8 +29,8 @@
                 <div class="form-group">
                     <label for="type" class="text-dark">Type</label>
                     <select class="form-control" id="type" name="type">
-                        <option value="Drink" {{ $product->type == 'Drink' ? 'selected' : '' }}>Drink</option>
-                        <option value="Dessert" {{ $product->type == 'Dessert' ? 'selected' : '' }}>Dessert</option>
+                        <option value="Drinks" {{ $product->type == 'Drinks' ? 'selected' : '' }}>Drink</option>
+                        <option value="Desserts" {{ $product->type == 'Desserts' ? 'selected' : '' }}>Dessert</option>
                     </select>
                 </div>
                 <div class="form-group">
