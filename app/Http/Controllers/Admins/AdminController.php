@@ -261,4 +261,14 @@ class AdminController extends Controller
 
         return back()->with('success', 'Booking not found.');
     }
+
+    public function showPage($page)
+    {
+        if (view()->exists("pages.{$page}")) {
+            return view("pages.{$page}");
+        }
+
+        // Optionally, handle non-existing pages
+        abort(404);
+    }
 }

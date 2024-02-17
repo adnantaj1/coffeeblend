@@ -24,7 +24,7 @@ Auth::routes();
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('index');
 // for more generic routes
-Route::get('/{page}', [App\Http\Controllers\HomeController::class, 'showPage'])->where('page', '^(services|about|contact)$')->name('page.show');
+Route::get('/{page}', [App\Http\Controllers\Admins\AdminController::class, 'showPage'])->where('page', '^(services|about|contact)$')->name('page.show');
 
 
 
